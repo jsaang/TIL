@@ -73,3 +73,33 @@
 - 진짜 단순하게 ETag만 보내서 같으면 유지, 다르면 다시 받기!!
 - **캐시 제어 로직을 서버에서 완전히 관리**
 - 클라이언트는 단순히 이 값을 서버에 제공(클라이언트는 캐시 매커니즘을 모름)
+  
+## 4. 캐시와 조건부 요청 헤더
+
+### Cache-Control: 캐시 지시어(directives)
+
+- Cache-Control: max-age
+    - 캐시 유효 시간, 초 단위
+- Cache-Control: no-cache
+    - 데이터는 캐시해도 되지만, 항상 원(origin) 서버에 검증하고 사용
+- Cache-Control: no-store
+    - 데이터에 민감한 정보가 있으므로 저장하면 안됨 (메모리에서 쓰고 최대한 빨리 삭제)
+
+## 5. 프록시 캐시
+
+### Cache-Control: 캐시 지시어(directives) - 기타
+
+- Cache-Control: public
+    - 응답이 pubilc 캐시에 저장되어도 됨
+- Cache-Control: private
+    - 응답이 해당 사용자만을 위한 것임, private 캐시에 저장해야 함(기본 값)
+- Cache-Control: s-maxage
+    - 프록시 캐시에만 적용되는 max-age
+- Age: 60 (HTTP 헤더)
+    - 오리진 서버에서 응답 후 프록시 캐시 내에 머문 시간(초)
+
+## 6. 캐시 무효화
+
+### Cache-Control: 확실한 캐시 무효화 응답
+
+- **Cache-Control: no-cache, no-store, must-revalidate**
